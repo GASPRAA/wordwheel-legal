@@ -148,3 +148,81 @@
             font-size: 3.5rem;
             margin-bottom: 1.5rem;
             background: linear-gradient(135deg, var(--gold-accent), #d97706);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 4px 10px rgba(251, 191, 36, 0.2));
+        }
+
+        .card-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+            letter-spacing: 0.5px;
+        }
+
+        .card-desc {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            font-weight: 300;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        .footer {
+            margin-top: 6rem;
+            color: #52525b;
+            font-size: 0.85rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .footer a {
+            color: var(--gold-accent);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .footer a:hover {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .title { font-size: 2.5rem; }
+            .card { padding: 2.5rem 1.5rem; }
+            .grid { gap: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="container">
+        <header class="header">
+            <h1 class="title">WORD WHEEL LIVE</h1>
+            <p class="subtitle">Official Support & Legal Portal</p>
+        </header>
+
+        <div class="grid">
+            <a href="privacy.html" class="card">
+                <div class="card-icon">📄</div>
+                <h2 class="card-title">Privacy Policy</h2>
+                <p class="card-desc">Review our commitment to protecting your data, along with our terms of service and fair play guidelines.</p>
+            </a>
+
+            <a href="delete-account.html" class="card">
+                <div class="card-icon">🛡️</div>
+                <h2 class="card-title">Data Deletion</h2>
+                <p class="card-desc">Submit a secure request to permanently erase your account, ranking points, and all associated game data.</p>
+            </a>
+        </div>
+
+        <footer class="footer">
+            <p>WORD WHEEL LIVE ENTERTAINMENT. SECURE & ENCRYPTED.</p>
+            <p style="margin-top: 8px;">Contact Support: <a href="mailto:wordwheelonline@gmail.com">wordwheelonline@gmail.com</a></p>
+        </footer>
+    </div>
+</body>
+</html>
