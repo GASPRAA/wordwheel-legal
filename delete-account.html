@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Wheel Live - Account Deletion</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --text-color: #e2e8f0;
+            --accent-color: #ef4444;
+            --card-bg: #1e293b;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+        h1 { color: var(--accent-color); margin-bottom: 20px; }
+        p { margin-bottom: 20px; font-size: 1.1em; }
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        .btn:hover { background-color: #dc2626; }
+        .note {
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #94a3b8;
+            text-align: left;
+            background: rgba(0,0,0,0.2);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Request Account Deletion</h1>
+        <p>If you wish to permanently delete your Word Wheel Live account and all associated data, you can do so in two ways:</p>
+        
+        <div style="text-align: left; margin: 30px 0;">
+            <h3>Option 1: Inside the App (Fastest)</h3>
+            <ol>
+                <li>Open the <strong>Word Wheel Live</strong> app.</li>
+                <li>Go to <strong>Settings</strong> from the bottom menu.</li>
+                <li>Tap on <strong>Delete Account</strong> under Account Management.</li>
+                <li>Confirm your decision. Your data will be deleted instantly.</li>
+            </ol>
+            
+            <h3>Option 2: Via Email Request</h3>
+            <p>If you cannot access the app, you can request account deletion by sending us an email from the address associated with your account.</p>
+        </div>
+        
+        
+        <a href="mailto:wordwheelonline@gmail.com?subject=Account%20Deletion%20Request&body=Hello,%0A%0AI%20would%20like%20to%20request%20the%20permanent%20deletion%20of%20my%20Word%20Wheel%20Live%20account%20and%20all%20associated%20data.%0A%0AMy%20in-game%20username%20is:%20[Enter Username]%0A%0AThank%20you." class="btn">Request Deletion via Email</a>
+        
+        <div class="note">
+            <strong>Warning:</strong> Account deletion is irreversible. All your Gold, Ranking Points, VIP status, and match history will be permanently erased from our servers.
+        </div>
+    </div>
+</body>
+</html>
