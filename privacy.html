@@ -48,8 +48,8 @@
             border-radius: 50%;
             filter: blur(120px);
             z-index: -1;
-            transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275), margin 0.5s ease;
-            will-change: transform, margin;
+            transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            will-change: transform;
         }
         .orb-1 { width: 450px; height: 450px; background: rgba(251, 191, 36, 0.12); top: -100px; left: -100px; animation: pulse 8s infinite alternate; }
         .orb-2 { width: 550px; height: 550px; background: rgba(56, 189, 248, 0.08); bottom: -200px; right: -100px; animation: pulse 12s infinite alternate-reverse; }
@@ -174,39 +174,35 @@
     </div>
 
     <script>
-        const orb1 = document.querySelector('.orb-1');
-        const orb2 = document.querySelector('.orb-2');
-        const glow = document.querySelector('.cursor-glow');
-        const card = document.querySelector('.content-card');
-        
-        document.addEventListener('mousemove', (e) => {
-            const x = (e.clientX / window.innerWidth - 0.5);
-            const y = (e.clientY / window.innerHeight - 0.5);
+        if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+            const orb1 = document.querySelector('.orb-1');
+            const orb2 = document.querySelector('.orb-2');
+            const glow = document.querySelector('.cursor-glow');
+            const card = document.querySelector('.content-card');
             
-            orb1.style.transform = `translate(${x * 80}px, ${y * 80}px)`;
-            orb2.style.transform = `translate(${x * -120}px, ${y * -120}px)`;
+            document.addEventListener('mousemove', (e) => {
+                const x = (e.clientX / window.innerWidth - 0.5);
+                const y = (e.clientY / window.innerHeight - 0.5);
+                
+                orb1.style.transform = `translate(${x * 80}px, ${y * 80}px)`;
+                orb2.style.transform = `translate(${x * -120}px, ${y * -120}px)`;
+                
+                glow.style.left = e.clientX + 'px';
+                glow.style.top = e.clientY + 'px';
+            });
             
-            glow.style.left = e.clientX + 'px';
-            glow.style.top = e.clientY + 'px';
-        });
-
-        window.addEventListener('scroll', () => {
-            const scrolled = window.scrollY * 0.15;
-            orb1.style.marginTop = `${scrolled}px`;
-            orb2.style.marginBottom = `${scrolled}px`;
-        });
-        
-        if (card) {
-            card.addEventListener('mouseenter', () => {
-                glow.style.width = '800px';
-                glow.style.height = '800px';
-                glow.style.background = 'radial-gradient(circle, rgba(251, 191, 36, 0.10) 0%, transparent 60%)';
-            });
-            card.addEventListener('mouseleave', () => {
-                glow.style.width = '600px';
-                glow.style.height = '600px';
-                glow.style.background = 'radial-gradient(circle, rgba(251, 191, 36, 0.08) 0%, transparent 60%)';
-            });
+            if (card) {
+                card.addEventListener('mouseenter', () => {
+                    glow.style.width = '800px';
+                    glow.style.height = '800px';
+                    glow.style.background = 'radial-gradient(circle, rgba(251, 191, 36, 0.10) 0%, transparent 60%)';
+                });
+                card.addEventListener('mouseleave', () => {
+                    glow.style.width = '600px';
+                    glow.style.height = '600px';
+                    glow.style.background = 'radial-gradient(circle, rgba(251, 191, 36, 0.08) 0%, transparent 60%)';
+                });
+            }
         }
     </script>
 </body>
