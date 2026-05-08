@@ -30,16 +30,35 @@
             overflow-x: hidden;
             position: relative;
         }
+
+        .cursor-glow {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(251, 191, 36, 0.08) 0%, transparent 60%);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            transition: width 0.4s, height 0.4s;
+            mix-blend-mode: screen;
+        }
+
         .orb {
-            position: absolute;
+            position: fixed;
             border-radius: 50%;
             filter: blur(120px);
             z-index: -1;
-            animation: float 20s infinite alternate;
+            transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275), margin 0.5s ease;
+            will-change: transform, margin;
         }
-        .orb-1 { width: 400px; height: 400px; background: rgba(251, 191, 36, 0.12); top: -100px; left: -100px; }
-        .orb-2 { width: 500px; height: 500px; background: rgba(56, 189, 248, 0.08); bottom: -200px; right: -100px; animation-delay: -10s; }
-        @keyframes float { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(60px, 60px) scale(1.1); } }
+        .orb-1 { width: 450px; height: 450px; background: rgba(251, 191, 36, 0.12); top: -100px; left: -100px; animation: pulse 8s infinite alternate; }
+        .orb-2 { width: 550px; height: 550px; background: rgba(56, 189, 248, 0.08); bottom: -200px; right: -100px; animation: pulse 12s infinite alternate-reverse; }
+        
+        @keyframes pulse {
+            0% { opacity: 0.6; filter: blur(120px); transform: scale(1); }
+            100% { opacity: 1; filter: blur(140px); transform: scale(1.05); }
+        }
 
         .container {
             width: 90%;
@@ -47,7 +66,9 @@
             z-index: 10;
             text-align: center;
             padding: 2rem;
+            position: relative;
         }
+
         .wheel-wrapper {
             position: relative;
             width: 200px;
@@ -55,6 +76,11 @@
             margin: 0 auto 3rem auto;
             perspective: 800px;
             filter: drop-shadow(0 20px 30px rgba(0,0,0,0.8));
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .wheel-wrapper:hover {
+            transform: scale(1.1) rotateZ(5deg);
         }
 
         .wheel-pointer {
@@ -120,6 +146,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease;
         }
         .subtitle {
             font-size: 1.1rem;
@@ -152,6 +179,7 @@
             position: relative;
             overflow: hidden;
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            transform-style: preserve-3d;
         }
 
         .card::before {
@@ -165,7 +193,7 @@
         }
 
         .card:hover {
-            transform: translateY(-12px);
+            transform: translateY(-12px) scale(1.02);
             border-color: rgba(251, 191, 36, 0.4);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
         }
@@ -178,6 +206,11 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             filter: drop-shadow(0 4px 10px rgba(251, 191, 36, 0.2));
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .card:hover .card-icon {
+            transform: scale(1.2) translateZ(20px);
         }
 
         .card-title { font-size: 1.6rem; font-weight: 700; margin-bottom: 1rem; letter-spacing: 0.5px; }
@@ -198,10 +231,12 @@
             .card { padding: 2.5rem 1.5rem; }
             .grid { gap: 1.5rem; }
             .wheel-wrapper { width: 150px; height: 150px; }
+            .cursor-glow { display: none; }
         }
     </style>
 </head>
 <body>
+    <div class="cursor-glow"></div>
     <div class="orb orb-1"></div>
     <div class="orb orb-2"></div>
 
@@ -235,5 +270,44 @@
             <p style="margin-top: 8px;">Contact Support: <a href="mailto:wordwheelonline@gmail.com">wordwheelonline@gmail.com</a></p>
         </footer>
     </div>
+
+    <script>
+        const orb1 = document.querySelector('.orb-1');
+        const orb2 = document.querySelector('.orb-2');
+        const glow = document.querySelector('.cursor-glow');
+        const title = document.querySelector('.title');
+        
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth - 0.5);
+            const y = (e.clientY / window.innerHeight - 0.5);
+            
+            orb1.style.transform = `translate(${x * 80}px, ${y * 80}px)`;
+            orb2.style.transform = `translate(${x * -120}px, ${y * -120}px)`;
+            title.style.transform = `translate(${x * 10}px, ${y * 10}px)`;
+            
+            glow.style.left = e.clientX + 'px';
+            glow.style.top = e.clientY + 'px';
+        });
+
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY * 0.15;
+            orb1.style.marginTop = `${scrolled}px`;
+            orb2.style.marginBottom = `${scrolled}px`;
+        });
+        
+        const cards = document.querySelectorAll('.card');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                glow.style.width = '800px';
+                glow.style.height = '800px';
+                glow.style.background = 'radial-gradient(circle, rgba(251, 191, 36, 0.12) 0%, transparent 60%)';
+            });
+            card.addEventListener('mouseleave', () => {
+                glow.style.width = '600px';
+                glow.style.height = '600px';
+                glow.style.background = 'radial-gradient(circle, rgba(251, 191, 36, 0.08) 0%, transparent 60%)';
+            });
+        });
+    </script>
 </body>
 </html>
